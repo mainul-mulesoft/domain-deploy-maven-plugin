@@ -1,0 +1,38 @@
+Deploys domains to the Mule server via REST API.
+
+This is an experimental plugin which deploys domains via REST API.
+To enable, edit the `MULE_HOME/conf/mule-agent.yml` and add the following:
+
+    rest.agent.transport:
+    enabled: true
+    port: 9999
+
+To invoke,use the command 'mvn clean package domaindeploy:deploy'
+
+            <plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>domaindeploy-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <urls>http://192.168.1.1:9999,http://192.168.1.2:9999,http://192.168.1.3:9999</urls>
+                    <domainName>${project.artifactId}</domainName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven</groupId>
+                        <artifactId>maven-project</artifactId>
+                        <version>2.2.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
